@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Was wir machen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Wittgenstein:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --page-bg: #f7f4ef;
+      --card-bg: #fffdf9;
+      --text: #141414;
+      --muted: #55504a;
+      --border: #ded7cb;
+      --shadow: 0 24px 80px rgba(20, 20, 20, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: radial-gradient(circle at top left, #fff8ea 0, var(--page-bg) 36%, #eee9df 100%);
+      color: var(--text);
+      font-family: "Geist", Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 18px;
+    }
+
+    main {
+      width: min(100%, 760px);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 6vw, 56px);
+    }
+
+    .search {
+      margin-bottom: 34px;
+      position: relative;
+    }
+
+    .search label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12pt;
+    }
+
+    .search input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 13px 18px;
+      font: 12pt "Geist", Arial, sans-serif;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .search input:focus {
+      border-color: #111111;
+      box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 22px;
+      font: 600 24pt/1.15 "Wittgenstein", Georgia, serif;
+      letter-spacing: -0.02em;
+    }
+
+    .content {
+      font: 12pt/1.65 "Geist", Arial, sans-serif;
+    }
+
+    .content p {
+      margin: 0 0 18px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 28px 0 36px;
+    }
+
+    .button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      background: #000000;
+      color: #ffffff;
+      cursor: pointer;
+      font: 500 10pt "Geist", Arial, sans-serif;
+      padding: 12px 20px;
+      min-width: 132px;
+      transition: transform 160ms ease, background-color 160ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      background: #2a2a2a;
+      transform: translateY(-1px);
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font: 7pt/1.6 "Geist", Arial, sans-serif;
+    }
+
+    .footer-note p {
+      margin: 0 0 10px;
+    }
+
+    mark {
+      background: #fff0a8;
+      border-radius: 4px;
+      padding: 0 2px;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        align-items: flex-start;
+        padding-top: 18px;
+      }
+
+      main {
+        border-radius: 22px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="search" aria-label="Seitensuche">
+      <label for="searchInput">Suche</label>
+      <input id="searchInput" type="search" placeholder="Text auf dieser Seite suchen…" autocomplete="off" />
+    </section>
+
+    <article id="searchArea">
+      <h1>Was wir machen</h1>
+
+      <div class="content">
+        <p>Anstrengende Tage können auch mal sein – problematisch sind sie nur, wenn sie zu oft vorkommen. Und wir wissen genau, wie oft solche Tage bei gestressten Höhiern vorkommen.</p>
+
+        <p>Genau dafür gibt es Kapfna Magna. Wir geben euch Entspannung und Tipps, damit man sich noch besser konzentrieren kann. Du kannst es für drei Monate kostenlos testen lassen und jederzeit kündigen!*</p>
+
+        <p>Für Rückfragen &amp; Probleme schreibst du eine Mail an Husais@hmail.com oder kontaktiere den offiziellen Support.</p>
+      </div>
+
+      <div class="actions" aria-label="Aktionen">
+        <button class="button" type="button">Jetzt testen</button>
+        <button class="button" type="button">Direkt bezahlen</button>
+      </div>
+
+      <footer class="footer-note">
+        <p>* Den konkreten »Kündigen-Button« gibt es nicht. Sie müssen wahrscheinlich in Kombination mit Optionen kündigen oder eine Mail schreiben.</p>
+        <p>© Inga-Inga-Agentur. Alle Rechte vorbehalten</p>
+      </footer>
+    </article>
+  </main>
+
+  <script>
+    const searchInput = document.querySelector("#searchInput");
+    const searchArea = document.querySelector("#searchArea");
+    const searchableNodes = [...searchArea.querySelectorAll("h1, .content p, .footer-note p")];
+    const originalText = searchableNodes.map((node) => node.textContent);
+
+    function escapeRegExp(value) {
+      return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    function highlightText() {
+      const query = searchInput.value.trim();
+
+      searchableNodes.forEach((node, index) => {
+        const text = originalText[index];
+
+        if (!query) {
+          node.textContent = text;
+          return;
+        }
+
+        const matcher = new RegExp(`(${escapeRegExp(query)})`, "gi");
+        node.innerHTML = text.replace(matcher, "<mark>$1</mark>");
+      });
+    }
+
+    searchInput.addEventListener("input", highlightText);
+  </script>
+</body>
+</html>
